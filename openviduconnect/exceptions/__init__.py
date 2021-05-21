@@ -1,0 +1,18 @@
+from .errors import (
+    SessionBodyParameterError,
+    SessionExistsError,
+    SessionNotFoundError,
+    ConnectionBodyParameterError,
+    ConnectionIPCAMError,
+    SessionDoesNotExistError,
+    ConnectionNotFound,
+    SessionOrConnectionDoesNotExist,
+    RecordingBodyParameterError,
+    RecordingResolutionOrBrowserSettingsError,
+    RecordingNoConnectedParticipantsError,
+    RecordingNotConfiguredForMediaNodeError,
+    RecordingDisabledOnServerError,
+    RecordingNotFoundError,
+    RecordingStartingProgressError,
+    RecordingNotCompletedError,
+)
