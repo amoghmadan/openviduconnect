@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from urllib.parse import urljoin
 
-from httpx import Client, Response
+from httpx import AsyncClient, Response
 
 from .base import BaseClient
 from ..exceptions import (
@@ -41,7 +41,7 @@ class AsyncOpenViduClient(BaseClient):
     async def create_session(self: AsyncOpenViduClient, **kwargs: str) -> dict:
         """."""
 
-        async with Client(verify=self._verify, timeout=self._timeout) as client:
+        async with AsyncClient(verify=self._verify, timeout=self._timeout) as client:
             response: Response = await client.post(self._apis["sessions"], headers=self._headers, json=kwargs)
 
         if response.status_code == 400:
@@ -55,7 +55,7 @@ class AsyncOpenViduClient(BaseClient):
         """."""
 
         url: str = urljoin(self._apis["sessions"], session_id)
-        async with Client(verify=self._verify, headers=self._timeout) as client:
+        async with AsyncClient(verify=self._verify, headers=self._timeout) as client:
             response: Response = await client.get(url, headers=self._headers)
 
         if response.status_code == 404:
@@ -66,7 +66,7 @@ class AsyncOpenViduClient(BaseClient):
     async def get_sessions(self: AsyncOpenViduClient) -> dict:
         """."""
 
-        async with Client(verify=self._verify, timeout=self._timeout) as client:
+        async with AsyncClient(verify=self._verify, timeout=self._timeout) as client:
             response: Response = await client.get(self._apis["sessions"], headers=self._headers)
 
         return response.json()
@@ -75,7 +75,7 @@ class AsyncOpenViduClient(BaseClient):
         """."""
 
         url: str = urljoin(self._apis["sessions"], session_id)
-        async with Client(verify=self._verify, headers=self._timeout) as client:
+        async with AsyncClient(verify=self._verify, headers=self._timeout) as client:
             response: Response = await client.delete(url, headers=self._headers)
 
         if response.status_code == 404:
@@ -88,7 +88,7 @@ class AsyncOpenViduClient(BaseClient):
 
         session_url: str = urljoin(self._apis["sessions"], session_id)
         url: str = urljoin(session_url, "connection")
-        async with Client(verify=self._verify, timeout=self._timeout) as client:
+        async with AsyncClient(verify=self._verify, timeout=self._timeout) as client:
             response: Response = await client.post(url, headers=self._headers, json=kwargs)
 
         if response.status_code == 400:
@@ -106,7 +106,7 @@ class AsyncOpenViduClient(BaseClient):
         session_url: str = urljoin(self._apis["sessions"], session_id)
         connection_url: str = urljoin(session_url, "connection")
         url: str = urljoin(connection_url, connection_id)
-        async with Client(verify=self._verify, timeout=self._timeout) as client:
+        async with AsyncClient(verify=self._verify, timeout=self._timeout) as client:
             response: Response = await client.get(url, headers=self._headers)
 
         if response.status_code == 400:
@@ -121,7 +121,7 @@ class AsyncOpenViduClient(BaseClient):
 
         session_url: str = urljoin(self._apis["session"], session_id)
         url: str = urljoin(session_url, "connection")
-        async with Client(verify=self._verify, timeout=self._timeout) as client:
+        async with AsyncClient(verify=self._verify, timeout=self._timeout) as client:
             response: Response = await client.get(url, headers=self._headers)
 
         if response.status_code == 404:
@@ -135,7 +135,7 @@ class AsyncOpenViduClient(BaseClient):
         session_url: str = urljoin(self._apis["session"], session_id)
         connection_url: str = urljoin(session_url, "connection")
         url: str = urljoin(connection_url, connection_id)
-        async with Client(verify=self._verify, timeout=self._timeout) as client:
+        async with AsyncClient(verify=self._verify, timeout=self._timeout) as client:
             response: Response = await client.patch(url, headers=self._headers, json=kwargs)
 
         if response.status_code == 400:
@@ -153,7 +153,7 @@ class AsyncOpenViduClient(BaseClient):
         session_url: str = urljoin(self._apis["session"], session_id)
         connection_url: str = urljoin(session_url, "connection")
         url: str = urljoin(connection_url, connection_id)
-        async with Client(verify=self._verify, timeout=self._timeout) as client:
+        async with AsyncClient(verify=self._verify, timeout=self._timeout) as client:
             response: Response = await client.delete(url, headers=self._headers)
 
         if response.status_code == 400:
@@ -167,7 +167,7 @@ class AsyncOpenViduClient(BaseClient):
         """."""
 
         url: str = urljoin(self._apis["recordings"], "start")
-        async with Client(verify=self._verify, timeout=self._timeout) as client:
+        async with AsyncClient(verify=self._verify, timeout=self._timeout) as client:
             response: Response = await client.post(url, headers=self._headers, json=kwargs)
 
         if response.status_code == 400:
@@ -198,7 +198,7 @@ class AsyncOpenViduClient(BaseClient):
 
         stop_url: str = urljoin(self._apis["recordings"], "stop")
         url: str = urljoin(stop_url, recording_id)
-        async with Client() as client:
+        async with AsyncClient() as client:
             response: Response = await client.post(url, headers=self._headers)
 
         if response.status_code == 404:
@@ -219,7 +219,7 @@ class AsyncOpenViduClient(BaseClient):
         """."""
 
         url: str = urljoin(self._apis["recordings"], recording_id)
-        async with Client() as client:
+        async with AsyncClient() as client:
             response: Response = await client.get(url, headers=self._headers)
 
         if response.status_code == 404:
@@ -235,7 +235,7 @@ class AsyncOpenViduClient(BaseClient):
     async def get_recordings(self: AsyncOpenViduClient) -> dict:
         """."""
 
-        async with Client(verify=self._verify, timeout=self._timeout) as client:
+        async with AsyncClient(verify=self._verify, timeout=self._timeout) as client:
             response: Response = await client.get(self._apis["recordings"], headers=self._headers)
 
         if response.status_code == 501:
@@ -250,7 +250,7 @@ class AsyncOpenViduClient(BaseClient):
         """."""
 
         url: str = urljoin(self._apis["recordings"], recording_id)
-        async with Client(verify=self._verify, timeout=self._timeout) as client:
+        async with AsyncClient(verify=self._verify, timeout=self._timeout) as client:
             response: Response = await client.delete(url, headers=self._headers)
 
         if response.status_code == 404:
